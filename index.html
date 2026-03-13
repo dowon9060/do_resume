@@ -7,7 +7,7 @@
   <meta name="description" content="정도원 - 운영기획 / 서비스운영 / B2B 세일즈 / 사업개발 전문가">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #2563eb;
@@ -42,7 +42,7 @@
     }
 
     body {
-      font-family: 'Noto Sans KR', 'Inter', -apple-system, sans-serif;
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
       color: var(--dark);
       background: var(--bg);
       line-height: 1.7;
@@ -405,7 +405,7 @@
       color: var(--primary);
       line-height: 1;
       margin-bottom: 0.25rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
     }
 
     .stat-label {
@@ -414,28 +414,117 @@
       font-weight: 500;
     }
 
-    /* ── Introduction Section ── */
-    .introduction { background: var(--bg); }
-
-    .intro-content {
-      max-width: 780px;
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      padding: 2rem;
     }
 
-    .intro-content .intro-paragraph {
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 780px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 3rem;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal::-webkit-scrollbar-thumb {
+      background: var(--gray-4);
+      border-radius: 3px;
+    }
+
+    .modal-close {
+      position: sticky;
+      top: 0;
+      float: right;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--gray-5);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 1;
+      margin-bottom: -36px;
+    }
+
+    .modal-close:hover {
+      background: var(--bg);
+      border-color: var(--gray-4);
+    }
+
+    .modal-close svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gray-2);
+    }
+
+    .modal-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      color: var(--gray-2);
+      margin-bottom: 2.5rem;
+    }
+
+    .intro-paragraph {
       color: var(--gray-1);
       font-size: 1rem;
       line-height: 2;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
     }
 
-    .intro-content .intro-paragraph:last-child { margin-bottom: 0; }
+    .intro-paragraph:last-child { margin-bottom: 0; }
 
     .intro-highlight-box {
-      background: var(--white);
+      background: var(--bg);
       border-left: 4px solid var(--primary);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       padding: 1.25rem 1.5rem;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
     }
 
     .intro-highlight-box p {
@@ -448,12 +537,7 @@
     .intro-chapters {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
-      margin-top: 2rem;
-    }
-
-    .intro-chapter {
-      position: relative;
+      gap: 2rem;
     }
 
     .intro-chapter-label {
@@ -462,7 +546,6 @@
       gap: 0.5rem;
       font-size: 0.8rem;
       font-weight: 600;
-      text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--primary);
       margin-bottom: 0.75rem;
@@ -472,8 +555,19 @@
     }
 
     .intro-chapter-label .num {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
       font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .modal {
+        padding: 2rem 1.5rem;
+        max-height: 90vh;
+      }
+
+      .modal-title {
+        font-size: 1.35rem;
+      }
     }
 
     /* ── Career Section ── */
@@ -740,7 +834,7 @@
     .swot-letter {
       font-size: 2rem;
       font-weight: 900;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
       line-height: 1;
       margin-bottom: 0.25rem;
     }
@@ -819,7 +913,7 @@
       justify-content: center;
       font-size: 0.8rem;
       font-weight: 700;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
     }
 
     .howwork-item p {
@@ -1026,7 +1120,6 @@
       <a href="#hero" class="nav-logo"><span>D</span>owon</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
-        <li><a href="#introduction">소개서</a></li>
         <li><a href="#career">Career</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -1100,63 +1193,6 @@
             <div class="stat-label">창업 경험</div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Introduction (자기소개서) -->
-  <section class="introduction" id="introduction">
-    <div class="section-inner">
-      <div class="section-header fade-up">
-        <h2 class="section-title">자기소개서</h2>
-        <p class="section-desc">약 20년간의 현장 경험과 도전의 기록입니다.</p>
-      </div>
-
-      <div class="intro-content intro-chapters">
-
-        <div class="intro-chapter fade-up">
-          <div class="intro-chapter-label"><span class="num">01</span> 시작</div>
-          <p class="intro-paragraph">저는 약 20년에 걸쳐 필드 세일즈부터 B2B 영업, 세일즈팀 리딩, 서비스 기획, 사업 기획, 스타트업 창업까지 다양한 역할을 수행하며 폭넓은 경험과 역량을 쌓아왔습니다. 특히 데이터 분석 기반의 문제 해결력과 영업 전략 수립, 실행력, 그리고 팀워크와 리더십을 바탕으로 조직의 성장과 성과 향상에 기여해 왔습니다.</p>
-        </div>
-
-        <div class="intro-chapter fade-up">
-          <div class="intro-chapter-label"><span class="num">02</span> 배달의민족</div>
-          <p class="intro-paragraph">제 커리어의 전환점은 2012년 우아한형제들에 입사하면서 시작되었습니다. 당시 체계가 갖춰지지 않은 영업 환경에서, 단순한 외판 활동에 그치지 않고 지역별 수요를 분석하고 자체적으로 DB를 구축하여 영업 리드를 파이프라인화했습니다.</p>
-          <div class="intro-highlight-box">
-            <p>하루 1,000건 계약 달성 — 입사 3개월 만에 KPI 초과 달성과 조직 내 신뢰를 바탕으로 과장으로 조기 승진</p>
-          </div>
-          <p class="intro-paragraph">'배달의민족 바로결제' 프로젝트에 참여하여 테스트 상점 모집 및 오류 개선을 주도하였고, 상점의 선결제에 대한 거부감과 수수료 이슈를 극복하기 위한 솔루션을 마련했습니다. 이러한 경험은 배달의민족 서비스 고도화의 기반을 다지는 데 중요한 역할을 했습니다.</p>
-          <p class="intro-paragraph">추후 '배민라이더스' TF에 참여하면서 관악센터 센터장을 맡아 라이더들과의 소통을 통해 조직 운영과 동기부여, 인력관리 측면에서도 실질적인 리더십을 발휘할 수 있었습니다.</p>
-          <div class="intro-highlight-box">
-            <p>배민라이더스 관악센터 — 평균 수행 시간 90분 → 50분 단축 달성</p>
-          </div>
-        </div>
-
-        <div class="intro-chapter fade-up">
-          <div class="intro-chapter-label"><span class="num">03</span> 바로고 — 전략적 기획자로</div>
-          <p class="intro-paragraph">우아한형제들에서 현장을 중심으로 한 참여자였다면, 이후 바로고에서는 보다 전략적인 기획자 역할을 수행하였습니다. 기존의 B2B 상점 및 고객사 관리를 수행하며 사업 구조 전반을 파악하였고, SQL, 엑셀, 파워포인트 등 부족했던 역량을 집중적으로 보완하여 데이터 기반 문제 해결 능력을 내재화하였습니다.</p>
-          <p class="intro-paragraph">특히 직접 서비스 프로세스를 설계하고 고도화하는 역할을 수행하면서 기획자이자 실행자로서 역량을 강화했으며, 실무자들과의 긴밀한 커뮤니케이션을 통해 프로젝트의 완성도를 높였습니다. 항상 배우는 자세로 업무에 임하며, 성과 창출보다는 성과의 구조를 이해하고 복제 가능한 시스템을 만드는 것에 초점을 맞추었습니다.</p>
-        </div>
-
-        <div class="intro-chapter fade-up">
-          <div class="intro-chapter-label"><span class="num">04</span> 창업 — 펀인그라운드</div>
-          <p class="intro-paragraph">다년간의 실무 경험과 배운 역량을 바탕으로 직접 스타트업 창업에 도전하게 되었습니다. 안정적인 커리어를 잠시 멈추고 시장과 고객, 팀, 자금조달 등 사업 전반에 대한 책임을 스스로 짊어지며 운영하였습니다.</p>
-          <p class="intro-paragraph">초기에는 혼자 사업을 기획하고 운영하며 부족한 부분을 보완해 나갔고, 함께할 동료를 모아 팀을 만들면서 한층 더 책임감을 느꼈습니다. 투자 유치를 위해 다양한 IR 피칭을 준비하고, 수많은 VC, 액셀러레이터를 만나면서 비즈니스 구조와 전략적 시야를 넓힐 수 있었습니다.</p>
-          <p class="intro-paragraph">창업은 언제나 순탄하지 않았습니다. 예상치 못한 변수들과 시장 반응, 투자 실패 등 어려움 속에서도 좌절보다는 학습의 기회로 삼았고, 이후 더 깊은 고민을 시작했습니다. 특히, 그동안 수많은 자영업자를 상대하며 "이분들이 실패하지 않도록 도울 수 있는 방법은 무엇일까?"라는 질문을 스스로에게 던지게 되었고, 이를 해결하기 위해 엑셀 기반 매출/수수료 계산표를 직접 만들어 컨설팅에 활용하기도 했습니다.</p>
-        </div>
-
-        <div class="intro-chapter fade-up">
-          <div class="intro-chapter-label"><span class="num">05</span> 업무 철학</div>
-          <p class="intro-paragraph">저는 단순히 성과를 내는 것만큼 일의 과정에서 의미와 재미를 찾는 자세를 중요하게 생각합니다. 문제가 발생했을 때도 원인을 회피하기보다 해결 방안을 먼저 고민하고 실천하는 성향이며, 사소한 일이라도 항상 배우는 자세로 임합니다.</p>
-          <p class="intro-paragraph">기한을 지키는 책임감, 조직의 일원으로서의 팀워크, 그리고 나이에 얽매이지 않고 변화와 성장에 열린 태도는 제가 가장 중요하게 여기는 업무 철학입니다. 또한, 정직함과 신뢰를 바탕으로 모든 관계를 대하며, 어떤 환경에서도 제 역할을 충실히 해내기 위해 끊임없이 노력하고 있습니다.</p>
-        </div>
-
-        <div class="intro-chapter fade-up">
-          <div class="intro-chapter-label"><span class="num">06</span> 앞으로</div>
-          <p class="intro-paragraph">지금까지의 경험은 저를 더욱 단단하고 유연한 사람으로 만들어 주었습니다. 저는 다양한 조직과 시장 환경 속에서 실무부터 전략까지 경험하며, 문제를 정의하고 해결하는 구조적인 접근을 익혔습니다.</p>
-          <p class="intro-paragraph">앞으로는 저의 이러한 경험과 태도를 바탕으로, 회사의 성장에 기여하고 함께 발전할 수 있는 파트너가 되기를 희망합니다. 새로운 도전 앞에서도 두려움 없이 나아가며, 맡은 역할에서 최고의 성과를 만들어내겠습니다.</p>
-        </div>
-
       </div>
     </div>
   </section>
@@ -1471,13 +1507,68 @@
           <div class="contact-card-label">Location</div>
           <div class="contact-card-value">광주광역시 서구 / 서울시 송파구</div>
         </div>
-        <a href="#introduction" class="contact-card">
+        <a href="javascript:void(0)" class="contact-card" id="openIntroModal">
           <div class="contact-card-label">자기소개서</div>
           <div class="contact-card-value">자세히 보기 →</div>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- 자기소개서 Modal -->
+  <div class="modal-overlay" id="introModal">
+    <div class="modal">
+      <button class="modal-close" id="closeIntroModal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <h2 class="modal-title">자기소개서</h2>
+      <p class="modal-subtitle">약 20년간의 현장 경험과 도전의 기록입니다.</p>
+
+      <div class="intro-chapters">
+        <div class="intro-chapter">
+          <div class="intro-chapter-label"><span class="num">01</span> 시작</div>
+          <p class="intro-paragraph">저는 약 20년에 걸쳐 필드 세일즈부터 B2B 영업, 세일즈팀 리딩, 서비스 기획, 사업 기획, 스타트업 창업까지 다양한 역할을 수행하며 폭넓은 경험과 역량을 쌓아왔습니다. 특히 데이터 분석 기반의 문제 해결력과 영업 전략 수립, 실행력, 그리고 팀워크와 리더십을 바탕으로 조직의 성장과 성과 향상에 기여해 왔습니다.</p>
+        </div>
+
+        <div class="intro-chapter">
+          <div class="intro-chapter-label"><span class="num">02</span> 배달의민족</div>
+          <p class="intro-paragraph">제 커리어의 전환점은 2012년 우아한형제들에 입사하면서 시작되었습니다. 당시 체계가 갖춰지지 않은 영업 환경에서, 단순한 외판 활동에 그치지 않고 지역별 수요를 분석하고 자체적으로 DB를 구축하여 영업 리드를 파이프라인화했습니다.</p>
+          <div class="intro-highlight-box">
+            <p>하루 1,000건 계약 달성 — 입사 3개월 만에 KPI 초과 달성과 조직 내 신뢰를 바탕으로 과장으로 조기 승진</p>
+          </div>
+          <p class="intro-paragraph">'배달의민족 바로결제' 프로젝트에 참여하여 테스트 상점 모집 및 오류 개선을 주도하였고, 상점의 선결제에 대한 거부감과 수수료 이슈를 극복하기 위한 솔루션을 마련했습니다.</p>
+          <p class="intro-paragraph">추후 '배민라이더스' TF에 참여하면서 관악센터 센터장을 맡아 라이더들과의 소통을 통해 조직 운영과 동기부여, 인력관리 측면에서도 실질적인 리더십을 발휘할 수 있었습니다.</p>
+          <div class="intro-highlight-box">
+            <p>배민라이더스 관악센터 — 평균 수행 시간 90분 → 50분 단축 달성</p>
+          </div>
+        </div>
+
+        <div class="intro-chapter">
+          <div class="intro-chapter-label"><span class="num">03</span> 바로고 — 전략적 기획자로</div>
+          <p class="intro-paragraph">우아한형제들에서 현장을 중심으로 한 참여자였다면, 이후 바로고에서는 보다 전략적인 기획자 역할을 수행하였습니다. 기존의 B2B 상점 및 고객사 관리를 수행하며 사업 구조 전반을 파악하였고, SQL, 엑셀, 파워포인트 등 부족했던 역량을 집중적으로 보완하여 데이터 기반 문제 해결 능력을 내재화하였습니다.</p>
+          <p class="intro-paragraph">특히 직접 서비스 프로세스를 설계하고 고도화하는 역할을 수행하면서 기획자이자 실행자로서 역량을 강화했으며, 실무자들과의 긴밀한 커뮤니케이션을 통해 프로젝트의 완성도를 높였습니다.</p>
+        </div>
+
+        <div class="intro-chapter">
+          <div class="intro-chapter-label"><span class="num">04</span> 창업 — 펀인그라운드</div>
+          <p class="intro-paragraph">다년간의 실무 경험과 배운 역량을 바탕으로 직접 스타트업 창업에 도전하게 되었습니다. 안정적인 커리어를 잠시 멈추고 시장과 고객, 팀, 자금조달 등 사업 전반에 대한 책임을 스스로 짊어지며 운영하였습니다.</p>
+          <p class="intro-paragraph">초기에는 혼자 사업을 기획하고 운영하며 부족한 부분을 보완해 나갔고, 함께할 동료를 모아 팀을 만들면서 한층 더 책임감을 느꼈습니다. 투자 유치를 위해 다양한 IR 피칭을 준비하고, 수많은 VC, 액셀러레이터를 만나면서 비즈니스 구조와 전략적 시야를 넓힐 수 있었습니다.</p>
+          <p class="intro-paragraph">창업은 언제나 순탄하지 않았습니다. 예상치 못한 변수들과 시장 반응, 투자 실패 등 어려움 속에서도 좌절보다는 학습의 기회로 삼았고, "이분들이 실패하지 않도록 도울 수 있는 방법은 무엇일까?"라는 질문을 스스로에게 던지게 되었습니다.</p>
+        </div>
+
+        <div class="intro-chapter">
+          <div class="intro-chapter-label"><span class="num">05</span> 업무 철학</div>
+          <p class="intro-paragraph">저는 단순히 성과를 내는 것만큼 일의 과정에서 의미와 재미를 찾는 자세를 중요하게 생각합니다. 문제가 발생했을 때도 원인을 회피하기보다 해결 방안을 먼저 고민하고 실천하는 성향이며, 사소한 일이라도 항상 배우는 자세로 임합니다.</p>
+          <p class="intro-paragraph">기한을 지키는 책임감, 조직의 일원으로서의 팀워크, 그리고 나이에 얽매이지 않고 변화와 성장에 열린 태도는 제가 가장 중요하게 여기는 업무 철학입니다.</p>
+        </div>
+
+        <div class="intro-chapter">
+          <div class="intro-chapter-label"><span class="num">06</span> 앞으로</div>
+          <p class="intro-paragraph">지금까지의 경험은 저를 더욱 단단하고 유연한 사람으로 만들어 주었습니다. 앞으로는 저의 이러한 경험과 태도를 바탕으로, 회사의 성장에 기여하고 함께 발전할 수 있는 파트너가 되기를 희망합니다. 새로운 도전 앞에서도 두려움 없이 나아가며, 맡은 역할에서 최고의 성과를 만들어내겠습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -1517,6 +1608,29 @@
     }, observerOptions);
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Modal
+    const introModal = document.getElementById('introModal');
+    const openBtn = document.getElementById('openIntroModal');
+    const closeBtn = document.getElementById('closeIntroModal');
+
+    openBtn.addEventListener('click', () => {
+      introModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeModal() {
+      introModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    introModal.addEventListener('click', (e) => {
+      if (e.target === introModal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
 
     // Active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
