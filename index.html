@@ -32,6 +32,9 @@
       --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
       --radius: 16px;
       --radius-sm: 10px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+      --anim-duration: 0.75s;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,7 +65,13 @@
       right: 0;
       z-index: 1000;
       padding: 0 2rem;
-      transition: all 0.3s ease;
+      transition: background 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft), backdrop-filter 0.4s var(--ease-soft);
+      animation: navFade 0.8s var(--ease-out) both;
+    }
+
+    @keyframes navFade {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     nav.scrolled {
@@ -178,16 +187,19 @@
 
     @keyframes float {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(30px, -30px); }
+      50% { transform: translate(12px, -12px); }
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
       max-width: 800px;
+      text-align: center;
     }
-
 
     .hero-badge {
       display: inline-block;
@@ -197,17 +209,54 @@
       border-radius: 50px;
       font-size: 0.85rem;
       font-weight: 500;
-      margin-bottom: 1.5rem;
+      margin: 0 0 1rem;
       border: 1px solid rgba(37,99,235,0.2);
     }
 
-    .hero h1 {
+    .hero-title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 0 0 0.75rem;
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 900;
       color: var(--white);
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
       letter-spacing: -0.03em;
+    }
+
+    .hero-title-line {
+      display: block;
+      line-height: 1.2;
+      opacity: 0;
+      animation: heroReveal var(--anim-duration) var(--ease-out) forwards;
+    }
+
+    .hero-title-line:nth-child(1) { animation-delay: 0.12s; }
+    .hero-title-line:nth-child(2) { animation-delay: 0.24s; }
+    .hero-title-line:nth-child(3) { animation-delay: 0.36s; }
+
+    .hero-content > h2,
+    .hero-content > .hero-tags,
+    .hero-content > .hero-badge,
+    .hero-content > .hero-cta {
+      opacity: 0;
+      animation: heroReveal var(--anim-duration) var(--ease-out) forwards;
+    }
+
+    .hero-content > h2 { animation-delay: 0.48s; }
+    .hero-content > .hero-tags { animation-delay: 0.62s; }
+    .hero-content > .hero-badge { animation-delay: 0.76s; }
+    .hero-content > .hero-cta { animation-delay: 0.9s; }
+
+    @keyframes heroReveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero h1 .highlight {
@@ -258,7 +307,7 @@
       font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.3s;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), background 0.35s var(--ease-soft), border-color 0.35s var(--ease-soft);
       cursor: pointer;
       border: none;
       font-family: inherit;
@@ -292,7 +341,7 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1;
-      animation: bounce 2s infinite;
+      animation: gentleFloat 2.8s var(--ease-soft) infinite;
     }
 
     .scroll-indicator svg {
@@ -301,9 +350,9 @@
       stroke: var(--gray-3);
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(10px); }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.45; }
+      50% { transform: translateX(-50%) translateY(8px); opacity: 0.9; }
     }
 
     /* ── Section Commons ── */
@@ -664,7 +713,7 @@
     }
 
     .skill-category:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
 
@@ -755,7 +804,7 @@
     }
 
     .project-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-md);
       border-color: var(--primary-light);
     }
@@ -793,7 +842,7 @@
     }
 
     .swot-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
 
@@ -865,7 +914,7 @@
     }
 
     .insight-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-md);
       border-color: var(--primary-light);
     }
@@ -905,7 +954,7 @@
     }
 
     .insight-quote:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-lg);
     }
 
@@ -1034,7 +1083,7 @@
     }
 
     .exp-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
 
@@ -1115,16 +1164,41 @@
       font-size: 0.82rem;
     }
 
+    .timeline-item.fade-up.visible .timeline-dot {
+      animation: dotReveal 0.6s var(--ease-out) both;
+    }
+
+    @keyframes dotReveal {
+      from { transform: scale(0.6); opacity: 0.5; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
     /* ── Scroll Animations ── */
     .fade-up {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(20px);
+      transition:
+        opacity 0.8s var(--ease-out),
+        transform 0.8s var(--ease-out);
+      transition-delay: var(--delay, 0s);
     }
 
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .fade-up {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     /* ── Responsive ── */
@@ -1209,9 +1283,12 @@
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="hero-content">
-      <div class="hero-badge">Service Operations & Growth Manager</div>
-      <h1>안녕하세요,<br><span class="highlight">정도원</span>입니다</h1>
-      <h2>대기업에서 커리어를 시작하여 배달의민족의 초기 스타트업 시절부터<br>유니콘까지의 성장 전 과정을 함께하며 성장한 전문가입니다</h2>
+      <h1 class="hero-title">
+        <span class="hero-title-line">계속 배우고</span>
+        <span class="hero-title-line">계속 실행하며</span>
+        <span class="hero-title-line">계속 성장합니다.</span>
+      </h1>
+      <h2>영업에서 시작해 운영을 배우고, 사업을 고민하며, 새로운 기술까지 익혀왔습니다.<br>더 나은 방법을 찾기 위해 오늘도 배우고 실행합니다.</h2>
       <div class="hero-tags">
         <span>운영기획</span>
         <span>서비스운영</span>
@@ -1222,6 +1299,7 @@
         <span>시장분석</span>
         <span>어드민 개발</span>
       </div>
+      <div class="hero-badge">Service Operations & Growth Manager</div>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">연락하기</a>
         <a href="#career" class="btn btn-outline">경력 보기</a>
@@ -1718,19 +1796,41 @@
 
     // Scroll animation (IntersectionObserver)
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.12,
+      rootMargin: '0px 0px -32px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Stagger grid items for subtle sequential reveal
+    const staggerContainers = [
+      '.insight-grid',
+      '.philosophy-content',
+      '.timeline',
+      '.skills-grid',
+      '.project-cards',
+      '.swot-grid',
+      '.howwork-grid',
+      '.exp-grid',
+      '.contact-grid'
+    ];
+
+    staggerContainers.forEach(selector => {
+      document.querySelectorAll(selector).forEach(container => {
+        container.querySelectorAll('.fade-up').forEach((el, index) => {
+          el.style.setProperty('--delay', `${Math.min(index * 0.07, 0.42)}s`);
+        });
+      });
+    });
 
     // Modal
     const introModal = document.getElementById('introModal');
