@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B 서비스 | 다짐 프로젝트</title>
+  <meta name="description" content="다짐 B2B 서비스 TF 프로젝트 - 기업 복지 운동시설 제공 서비스 기획 및 개발">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #dbeafe;
+      --dark: #0f172a;
+      --gray-1: #334155;
+      --gray-2: #64748b;
+      --gray-5: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --gradient-1: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      color: var(--dark);
+      background: var(--bg);
+      line-height: 1.8;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 1.25rem 2rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #93b4f8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--white); }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 2rem 2rem 4rem;
+      color: var(--white);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-tag {
+      display: inline-block;
+      background: rgba(37,99,235,0.15);
+      color: #93b4f8;
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(37,99,235,0.2);
+    }
+
+    .meta-tag.role {
+      background: rgba(124,58,237,0.15);
+      color: #c4b5fd;
+      border-color: rgba(124,58,237,0.25);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-summary {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 680px;
+      line-height: 1.9;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: -2rem auto 0;
+      padding: 0 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      border: 1px solid var(--gray-5);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--gradient-1);
+      flex-shrink: 0;
+    }
+
+    .card p {
+      color: var(--gray-1);
+      font-size: 0.98rem;
+      margin-bottom: 1rem;
+      line-height: 1.95;
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .problem-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .problem-list li,
+    .result-list li {
+      position: relative;
+      padding: 1rem 1.25rem 1rem 2.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .problem-list li {
+      background: var(--bg);
+      border: 1px solid var(--gray-5);
+      color: var(--gray-1);
+    }
+
+    .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .result-list li {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--gray-1);
+    }
+
+    .problem-list li::before {
+      content: '!';
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .result-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #16a34a;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1.5rem 1.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .highlight-box p {
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.98rem;
+      line-height: 1.9;
+    }
+
+    .image-card {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .image-card img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-5);
+    }
+
+    .image-caption {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--gray-2);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .role-item {
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      border: 1px solid var(--gray-5);
+      text-align: center;
+    }
+
+    .role-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    .role-item span {
+      font-size: 0.92rem;
+      color: var(--gray-1);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 1.5rem 1.25rem 3rem; }
+      .content { padding: 0 1.25rem 4rem; }
+      .card { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="../index.html#projects" class="back-link">← 주요 프로젝트로 돌아가기</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="project-meta">
+        <span class="meta-tag">다짐</span>
+        <span class="meta-tag">B2B 서비스</span>
+        <span class="meta-tag role">PM</span>
+        <span class="meta-tag">TF 프로젝트</span>
+      </div>
+      <h1>기업 복지 운동시설 B2B 서비스<br>기획 · 개발 · 배포</h1>
+      <p class="hero-summary">
+        기업 복지 확대와 구성원 건강관리 수요 속에서 발생한 구조적 비효율을 해결하기 위해, B2B 운동 복지 서비스를 직접 설계하고 TF로 기획·개발·배포까지 리딩한 프로젝트입니다.
+      </p>
+    </div>
+  </section>
+
+  <main class="content">
+
+    <div class="card image-card">
+      <img src="../public/b2b-dagym.jpg" alt="다짐 B2B 서비스 앱 화면">
+      <p class="image-caption">다짐 B2B 서비스 — 기업 복지 운동시설 제공 플랫폼</p>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 Overview</h2>
+      <p>기업 복지가 확대되면서 운동시설 계약·제공형 복지가 빠르게 늘고 있지만, 실제 운영 단계에서는 직원 경험과 기업 관리 모두에서 구조적 한계가 드러나고 있었습니다. 단순 계약 중개를 넘어, <strong>안전하고 투명한 B2B 이용 구조</strong>가 필요한 시점이었습니다.</p>
+      <p>이에 따라 기업·직원·시설이 모두 이해득실을 가질 수 있는 B2B 서비스를 신규 기획하고, TF를 구성해 서비스 설계부터 개발·배포·운영 프로세스 정립까지 전 과정을 수행했습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2>핵심 Pain Point</h2>
+      <ul class="problem-list">
+        <li>운동시설 이용 과정에서 <strong>프라이버시가 보장되지 않아</strong> 직원이 복지를 기꺼이 사용하지 못하는 문제</li>
+        <li>퇴근 후 동일 시설 이용 시 <strong>동료에게 원치 않게 노출</strong>되는 직장인 특유의 이용 부담</li>
+        <li>지원금 선결제 후 청구 구조에서 <strong>결제 취소를 통한 편취</strong>가 반복되는 운영 리스크</li>
+        <li>기업이 복지 예산·이용 현황·정산 흐름을 <strong>실시간으로 통제하기 어려운</strong> 관리 한계</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 접근</h2>
+      <p>문제의 본질은 '운동시설을 연결해주는 것'이 아니라, <strong>기업 복지가 안전하게 운영되는 구조</strong>를 만드는 것이었습니다. 이를 기준으로 서비스 흐름, 결제 구조, 운영 정책을 재설계했습니다.</p>
+      <div class="highlight-box">
+        <p>기업은 예산과 리스크를 관리하고, 직원은 프라이버시를 지키며 이용하고, 시설은 안정적으로 거래할 수 있는 <strong>3자 모두에게 이로운 B2B 복지 인프라</strong>를 목표로 설계했습니다.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>담당 역할 (PM)</h2>
+      <div class="role-grid">
+        <div class="role-item">
+          <strong>서비스 기획</strong>
+          <span>B2B 복지 구조 설계 및 요구사항 정의</span>
+        </div>
+        <div class="role-item">
+          <strong>개발 리딩</strong>
+          <span>기능 우선순위 설정 및 실행 관리</span>
+        </div>
+        <div class="role-item">
+          <strong>배포·운영</strong>
+          <span>런칭 전략 수립 및 운영 프로세스 구축</span>
+        </div>
+        <div class="role-item">
+          <strong>TF 총괄</strong>
+          <span>유관 부서 협업 조율 및 의사결정 리딩</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>성과 및 Impact</h2>
+      <ul class="result-list">
+        <li><strong>구조적 리스크 해소</strong> — 기존 복지 운영 방식의 편취·관리 공백을 서비스 구조로 해결</li>
+        <li><strong>직원 이용 경험 개선</strong> — 프라이버시와 편의성을 고려한 B2B 이용 환경 구축</li>
+        <li><strong>기업 운영 효율화</strong> — 복지 예산·이용·정산을 플랫폼 안에서 관리 가능한 구조 확립</li>
+        <li><strong>End-to-End 실행</strong> — 기획 → 개발 → 배포까지 PM으로 전 과정 수행</li>
+      </ul>
+      <p style="margin-top: 1.25rem;">단순 영업·운영을 넘어, 현장 Pain Point를 서비스로 전환한 <strong>문제 해결형 PM 프로젝트</strong>입니다.</p>
+    </div>
+
+  </main>
+
+</body>
+</html>

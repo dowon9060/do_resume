@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>다짐케어 | 다짐 프로젝트</title>
+  <meta name="description" content="다짐케어 프로젝트 - 헬스장 폐업 피해 최소화 및 결제 전환율 개선">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --dark: #0f172a;
+      --gray-1: #334155;
+      --gray-2: #64748b;
+      --gray-5: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --gradient-1: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      color: var(--dark);
+      background: var(--bg);
+      line-height: 1.8;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 1.25rem 2rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #93b4f8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--white); }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 2rem 2rem 4rem;
+      color: var(--white);
+    }
+
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-tag {
+      display: inline-block;
+      background: rgba(37,99,235,0.15);
+      color: #93b4f8;
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(37,99,235,0.2);
+    }
+
+    .meta-tag.role {
+      background: rgba(124,58,237,0.15);
+      color: #c4b5fd;
+      border-color: rgba(124,58,237,0.25);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-summary {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 680px;
+      line-height: 1.9;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: -2rem auto 0;
+      padding: 0 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      border: 1px solid var(--gray-5);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--gradient-1);
+      flex-shrink: 0;
+    }
+
+    .card p {
+      color: var(--gray-1);
+      font-size: 0.98rem;
+      margin-bottom: 1rem;
+      line-height: 1.95;
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .problem-list, .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .problem-list li {
+      position: relative;
+      padding: 1rem 1.25rem 1rem 2.75rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-5);
+      color: var(--gray-1);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .problem-list li::before {
+      content: '!';
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .result-list li {
+      position: relative;
+      padding: 1rem 1.25rem 1rem 2.75rem;
+      background: #f0fdf4;
+      border-radius: var(--radius-sm);
+      border: 1px solid #bbf7d0;
+      color: var(--gray-1);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .result-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #16a34a;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1.5rem 1.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .highlight-box p {
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.98rem;
+      line-height: 1.9;
+    }
+
+    .image-card {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .image-card img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-5);
+    }
+
+    .image-caption {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--gray-2);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .role-item {
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      border: 1px solid var(--gray-5);
+      text-align: center;
+    }
+
+    .role-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    .role-item span {
+      font-size: 0.92rem;
+      color: var(--gray-1);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 1.5rem 1.25rem 3rem; }
+      .content { padding: 0 1.25rem 4rem; }
+      .card { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="../index.html#projects" class="back-link">← 주요 프로젝트로 돌아가기</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="project-meta">
+        <span class="meta-tag">다짐</span>
+        <span class="meta-tag">다짐케어</span>
+        <span class="meta-tag role">PM</span>
+      </div>
+      <h1>이용자 보호 기반 다짐케어<br>신뢰 회복 · 결제 전환 개선</h1>
+      <p class="hero-summary">
+        헬스장·피트니스 시장의 신뢰 위기 속에서 이용자 피해를 최소화하고, 플랫폼 결제 전환율과 매출 성장을 동시에 달성하기 위해 기획·운영한 다짐케어 프로젝트입니다.
+      </p>
+    </div>
+  </section>
+
+  <main class="content">
+
+    <div class="card image-card">
+      <img src="../public/dagym-care.jpg" alt="다짐케어 서비스 화면">
+      <p class="image-caption">다짐케어 — 임직원 운동 복지를 연결하는 다짐 플랫폼</p>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 Overview</h2>
+      <p>헬스장·피트니스 시장에서 갑작스러운 폐업이 반복되면서 이용자 피해가 늘고, 시장 전반의 신뢰가 약화되고 있었습니다. 회원권 환불 불가, 현금 결제 유도, 사후 피해 구제 어려움 등 구조적 문제가 누적되며, 플랫폼이 해결해야 할 책임이 커지고 있었습니다.</p>
+      <p>다짐케어는 이러한 시장 환경 속에서 <strong>이용자 보호와 플랫폼 신뢰를 회복</strong>하고, 안전한 결제 구조를 통해 비즈니스 성과까지 연결하기 위해 기획된 서비스입니다.</p>
+    </div>
+
+    <div class="card">
+      <h2>핵심 Pain Point</h2>
+      <ul class="problem-list">
+        <li>헬스장 <strong>갑작스러운 폐업</strong>으로 이용자가 금전적 피해를 입는 사례 증가</li>
+        <li>현장 <strong>현금 결제 유도</strong>로 사고 발생 시 피해 구제가 어려운 구조</li>
+        <li>시장 신뢰 하락으로 <strong>플랫폼 결제 전환율</strong>이 낮아지는 문제</li>
+        <li>이용자 불안 확대로 <strong>피트니스 시장 전반</strong>이 위축되는 환경</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 접근</h2>
+      <p>다짐케어는 단순 프로모션이 아닌, <strong>이용자가 안심하고 결제할 수 있는 보호 구조</strong>를 만드는 것에서 출발했습니다. 플랫폼이 제공해야 할 신뢰의 기준을 재정의하고, 결제·운영 프로세스를 함께 개선했습니다.</p>
+      <div class="highlight-box">
+        <p>이용자 보호는 비용이 아니라 <strong>플랫폼 경쟁력의 핵심</strong>이라는 관점에서, 신뢰 회복과 매출 성장을 동시에 추구하는 방향으로 설계했습니다.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>담당 역할 (PM)</h2>
+      <div class="role-grid">
+        <div class="role-item">
+          <strong>서비스 기획</strong>
+          <span>이용자 보호 정책 및 서비스 구조 설계</span>
+        </div>
+        <div class="role-item">
+          <strong>운영 개선</strong>
+          <span>현장 결제 이슈 해소 및 프로세스 재정비</span>
+        </div>
+        <div class="role-item">
+          <strong>결제 전환</strong>
+          <span>플랫폼 결제율 개선 전략 수립·실행</span>
+        </div>
+        <div class="role-item">
+          <strong>성과 관리</strong>
+          <span>매출·전환 지표 모니터링 및 개선</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>성과 및 Impact</h2>
+      <ul class="result-list">
+        <li><strong>전월 대비 매출 상승</strong> — 서비스 도입 이후 매출이 지속적으로 성장</li>
+        <li><strong>현금 결제 유도 문제 해소</strong> — 사고 이후 피해를 받던 구조적 리스크 개선</li>
+        <li><strong>결제 전환율 개선</strong> — 안전한 결제 환경 구축으로 플랫폼 결제율 향상</li>
+        <li><strong>이용자 신뢰 회복</strong> — 폐업·환불 불안을 완화하는 보호 구조 제공</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 의미</h2>
+      <p>다짐케어는 불안정한 피트니스 시장에서 플랫폼이 가져야 할 <strong>사회적·비즈니스적 책임</strong>을 구현한 프로젝트입니다. 이용자 보호라는 가치를 서비스에 내재화함으로써, 신뢰와 매출을 동시에 만들어낸 PM 사례입니다.</p>
+    </div>
+
+  </main>
+
+</body>
+</html>

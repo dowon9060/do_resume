@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지도개편 | 다짐 프로젝트</title>
+  <meta name="description" content="다짐 지도개편 프로젝트 - 정보력 개선을 통한 체류시간 및 결제 전환율 향상">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --dark: #0f172a;
+      --gray-1: #334155;
+      --gray-2: #64748b;
+      --gray-5: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --gradient-1: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      color: var(--dark);
+      background: var(--bg);
+      line-height: 1.8;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 1.25rem 2rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #93b4f8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--white); }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 2rem 2rem 4rem;
+      color: var(--white);
+    }
+
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-tag {
+      display: inline-block;
+      background: rgba(37,99,235,0.15);
+      color: #93b4f8;
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(37,99,235,0.2);
+    }
+
+    .meta-tag.role {
+      background: rgba(124,58,237,0.15);
+      color: #c4b5fd;
+      border-color: rgba(124,58,237,0.25);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-summary {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 680px;
+      line-height: 1.9;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: -2rem auto 0;
+      padding: 0 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      border: 1px solid var(--gray-5);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--gradient-1);
+      flex-shrink: 0;
+    }
+
+    .card p {
+      color: var(--gray-1);
+      font-size: 0.98rem;
+      margin-bottom: 1rem;
+      line-height: 1.95;
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .problem-list, .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .problem-list li {
+      position: relative;
+      padding: 1rem 1.25rem 1rem 2.75rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-5);
+      color: var(--gray-1);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .problem-list li::before {
+      content: '!';
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .result-list li {
+      position: relative;
+      padding: 1rem 1.25rem 1rem 2.75rem;
+      background: #f0fdf4;
+      border-radius: var(--radius-sm);
+      border: 1px solid #bbf7d0;
+      color: var(--gray-1);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .result-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #16a34a;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1.5rem 1.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .highlight-box p {
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.98rem;
+      line-height: 1.9;
+    }
+
+    .image-card {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .image-card img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-5);
+    }
+
+    .image-caption {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--gray-2);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .role-item {
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      border: 1px solid var(--gray-5);
+      text-align: center;
+    }
+
+    .role-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    .role-item span {
+      font-size: 0.92rem;
+      color: var(--gray-1);
+      font-weight: 500;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .metric-item {
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      border: 1px solid var(--gray-5);
+      text-align: center;
+    }
+
+    .metric-item strong {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-item span {
+      font-size: 0.88rem;
+      color: var(--gray-2);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 1.5rem 1.25rem 3rem; }
+      .content { padding: 0 1.25rem 4rem; }
+      .card { padding: 1.75rem; }
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="../index.html#projects" class="back-link">← 주요 프로젝트로 돌아가기</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="project-meta">
+        <span class="meta-tag">다짐</span>
+        <span class="meta-tag">지도개편</span>
+        <span class="meta-tag role">PM</span>
+      </div>
+      <h1>정보력 중심 지도 UX 개편<br>체류시간 · 결제 전환율 개선</h1>
+      <p class="hero-summary">
+        정보력이 낮아 이탈이 발생하던 지도 화면을 전면 개편해, 고객 체류시간과 결제 전환율을 동시에 끌어올린 UX·서비스 개선 프로젝트입니다.
+      </p>
+    </div>
+  </section>
+
+  <main class="content">
+
+    <div class="card image-card">
+      <img src="../public/dagym-map.jpg" alt="다짐 지도개편 화면">
+      <p class="image-caption">다짐 지도개편 — 운동시설 탐색 및 필터 UX 개선</p>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 Overview</h2>
+      <p>다짐의 핵심 고객 여정인 지도 화면은 운동시설 탐색의 시작점이자, 결제로 이어지는 핵심 전환 구간입니다. 그러나 기존 지도는 정보 밀도가 낮아 고객이 원하는 시설을 비교·선택하기 어려웠고, 접속 후 짧은 체류와 높은 이탈로 이어지고 있었습니다.</p>
+      <p>지도를 단순한 위치 표시 UI가 아닌, <strong>매출을 만드는 핵심 화면</strong>으로 재정의하고 정보 구조와 UX를 전면 개편했습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2>핵심 Pain Point</h2>
+      <ul class="problem-list">
+        <li>지도에 전달되는 <strong>정보 밀도 부족</strong>으로 시설 비교·선택이 어려움</li>
+        <li>접속 후 <strong>체류시간이 짧고</strong> 탐색 단계에서 이탈 발생</li>
+        <li>탐색 비용이 높아 <strong>결제 전환으로 연결되지 못하는</strong> 구조</li>
+        <li>카테고리·필터·시설 정보가 <strong>직관적으로 연결되지 않는</strong> UX</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 접근</h2>
+      <p>고객이 지도에서 <strong>더 오래 머물고, 더 빠르게 판단하고, 더 많이 결제</strong>하도록 만드는 것을 목표로 정보 설계를 재구성했습니다. 시각적 개선을 넘어, 탐색 → 비교 → 결제로 이어지는 흐름 자체를 설계했습니다.</p>
+      <div class="highlight-box">
+        <p>지도개편의 핵심은 UI 변경이 아니라, <strong>정보력을 높여 고객 의사결정 속도와 전환율을 동시에 개선</strong>하는 것이었습니다.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>담당 역할 (PM)</h2>
+      <div class="role-grid">
+        <div class="role-item">
+          <strong>문제 정의</strong>
+          <span>지도 UX 이슈 분석 및 개선 과제 도출</span>
+        </div>
+        <div class="role-item">
+          <strong>정보 설계</strong>
+          <span>지도 정보력 강화 및 IA 재구성</span>
+        </div>
+        <div class="role-item">
+          <strong>실행 관리</strong>
+          <span>개발·디자인 협업 및 개편 일정 리딩</span>
+        </div>
+        <div class="role-item">
+          <strong>성과 검증</strong>
+          <span>체류시간·결제 전환율 지표 추적</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>성과 및 Impact</h2>
+      <div class="metric-grid">
+        <div class="metric-item">
+          <strong>체류시간 증가</strong>
+          <span>접속 후 지도 체류 시간 향상</span>
+        </div>
+        <div class="metric-item">
+          <strong>결제 전환율 상승</strong>
+          <span>탐색 → 결제 전환 개선</span>
+        </div>
+      </div>
+      <ul class="result-list" style="margin-top: 1.25rem;">
+        <li>정보력이 낮던 지도를 개편해 고객이 <strong>더 오래 탐색·비교</strong>할 수 있는 환경 구축</li>
+        <li>탐색 경험 개선을 통해 <strong>결제 전환율 상승</strong> 달성</li>
+        <li>지도를 <strong>매출 창출의 핵심 화면</strong>으로 전환</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>프로젝트 의미</h2>
+      <p>지도개편은 화면 수정이 아닌, <strong>고객 여정의 핵심 구간을 재설계</strong>한 프로젝트입니다. 정보력 개선이라는 명확한 문제 정의에서 출발해 체류시간과 결제 전환율이라는 비즈니스 성과로 연결한, 데이터 기반 UX PM 사례입니다.</p>
+    </div>
+
+  </main>
+
+</body>
+</html>
